@@ -58,12 +58,23 @@ protected slots:
     void zone2EditFinished(void);
     void tagHistoryNumberValueChanged(int);
 
+    // AUT
+    void anchor0RangeValueChanged(double);
+    void anchor1RangeValueChanged(double);
+    void anchor2RangeValueChanged(double);
+
     void showOriginGrid(bool orig, bool grid);
     void getFloorPlanPic(void);
     void showSave(bool);
 
     void setTagHistory(int h);
     void loggingClicked(void);
+
+    // AUT
+    void anchor0Range(double h);
+    void anchor1Range(double h);
+    void anchor2Range(double h);
+
 private:
     Ui::ViewSettingsWidget *ui;
 

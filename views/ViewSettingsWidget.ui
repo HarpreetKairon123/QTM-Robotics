@@ -23,7 +23,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="config_tab">
       <attribute name="title">
@@ -33,7 +33,7 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>380</y>
+         <y>330</y>
          <width>109</width>
          <height>17</height>
         </rect>
@@ -146,7 +146,7 @@
        <property name="geometry">
         <rect>
          <x>130</x>
-         <y>380</y>
+         <y>330</y>
          <width>51</width>
          <height>22</height>
         </rect>
@@ -165,7 +165,7 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>430</y>
+         <y>460</y>
          <width>109</width>
          <height>17</height>
         </rect>
@@ -181,7 +181,7 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>460</y>
+         <y>480</y>
          <width>109</width>
          <height>17</height>
         </rect>
@@ -200,7 +200,7 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>490</y>
+         <y>500</y>
          <width>191</width>
          <height>17</height>
         </rect>
@@ -232,7 +232,7 @@
        <property name="geometry">
         <rect>
          <x>120</x>
-         <y>260</y>
+         <y>240</y>
          <width>111</width>
          <height>22</height>
         </rect>
@@ -242,7 +242,7 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>260</y>
+         <y>240</y>
          <width>81</width>
          <height>20</height>
         </rect>
@@ -274,7 +274,7 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>300</y>
+         <y>270</y>
          <width>91</width>
          <height>20</height>
         </rect>
@@ -287,7 +287,7 @@
        <property name="geometry">
         <rect>
          <x>120</x>
-         <y>300</y>
+         <y>270</y>
          <width>111</width>
          <height>23</height>
         </rect>
@@ -313,7 +313,7 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>330</y>
+         <y>300</y>
          <width>211</width>
          <height>20</height>
         </rect>
@@ -333,6 +333,84 @@
        </property>
        <property name="text">
         <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_13">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>370</y>
+         <width>91</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Anchor 0 Rnage</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_14">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>400</y>
+         <width>91</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Anchor 1 Rnage</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_15">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>430</y>
+         <width>91</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Anchor 2 Rnage</string>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="anchor0Range">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>370</y>
+         <width>62</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="value">
+        <double>1.000000000000000</double>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="anchor1Range">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>400</y>
+         <width>62</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="value">
+        <double>1.000000000000000</double>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="anchor2Range">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>430</y>
+         <width>62</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="value">
+        <double>1.000000000000000</double>
        </property>
       </widget>
      </widget>

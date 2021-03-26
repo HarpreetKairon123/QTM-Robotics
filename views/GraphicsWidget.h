@@ -145,6 +145,9 @@ public slots:
     void zone1Value(double value);
     void zone2Value(double value);
     void tagHistoryNumber(int value);
+    void anchor0RangeValueChanged(double value);
+    void anchor1RangeValueChanged(double value);
+    void anchor2RangeValueChanged(double value);
     void zone(int zone, double radius, bool red);
     void setAlarm(bool in, bool out);
 
@@ -182,6 +185,12 @@ private:
     double _minRad;
     bool _zone1Red;
     bool _zone2Red;
+
+    int _tagRangeHits; // AUT
+    int _tagRangeMaxHitBeforeApiCall; //AUT
+    double _anchor0NotificationRange; // AUT If range set here exceeds a notification will be sent by calling a API.
+    double _anchor1NotificationRange; // AUT If range set here exceeds a notification will be sent by calling a API.
+    double _anchor2NotificationRange; // AUT If range set here exceeds a notification will be sent by calling a API.
 
 
     QGraphicsLineItem * _line01;

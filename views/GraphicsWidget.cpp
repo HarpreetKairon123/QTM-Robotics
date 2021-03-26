@@ -118,6 +118,13 @@ GraphicsWidget::GraphicsWidget(QWidget *parent) :
     _line01 = NULL;
     _line02 = NULL;
     _line12 = NULL;
+
+    _tagRangeHits = 0; // AUT
+    _tagRangeMaxHitBeforeApiCall = 20; // AUT - 5 seconds.
+    _anchor0NotificationRange = 1.00;
+    _anchor1NotificationRange = 1.00;
+    _anchor2NotificationRange = 1.00;
+
     RTLSDisplayApplication::connectReady(this, "onReady()");
 }
 
@@ -952,9 +959,40 @@ void GraphicsWidget::tagStats(quint64 tagId, double x, double y, double z, doubl
     }
 }
 
-
+/**
+ * Updates the range of the anchors
+ * Check if tags are above configured value if yes send message every 5-10 seconds by calling a rest API.
+ * */
 void GraphicsWidget::tagRange(quint64 tagId, quint64 aId, double range)
 {
+
+    // AUT - Increase the tag hits
+    _tagRangeHits = _tagRangeHits +1; // AUT
+
+    // AUT When tagRangeHit increase more than the configured value we will check if tags are outside the configured boundary.
+    // IF yes a api will be called with the tag id and the range.
+    // The tagRangeHits are just used to ensure API is not called every millisecond.
+    if(_tagRangeHits >= _tagRangeMaxHitBeforeApiCall)
+    {
+        // Tag 0
+        if(aId == 0 && range >= _anchor0NotificationRange) {
+            qDebug() << "TagRange - Calling API | " << "TagId" << aId << "Range" << range;
+        }
+
+        // Tag 1
+        if(aId == 1 && range >= _anchor1NotificationRange) {
+            qDebug() << "TagRange - Calling API | " << "TagId" << aId << "Range" << range;
+        }
+
+        // Tag 2
+        if(aId == 2 && range >= _anchor2NotificationRange) {
+            qDebug() << "TagRange - Calling API | " << "TagId" << aId << "Range" << range;
+        }
+
+        // Reset the hit counter.
+        _tagRangeHits = 0;
+    }
+
     if(_busy)
     {
         qDebug() << "(busy IGNORE) Range 0x" + QString::number(tagId, 16) << " " << range << " " << QString::number(aId, 16) ;
@@ -1138,6 +1176,22 @@ void GraphicsWidget::tagHistoryNumber(int value)
     _busy = false;
 }
 
+void GraphicsWidget::anchor0RangeValueChanged(double value)
+{
+    _anchor0NotificationRange = value;
+}
+
+void GraphicsWidget::anchor1RangeValueChanged(double value)
+{
+    qDebug() << "anchor1RangeValueChanged" << value;
+    _anchor1NotificationRange = value;
+}
+
+void GraphicsWidget::anchor2RangeValueChanged(double value)
+{
+    qDebug() << "anchor2RangeValueChanged" << value;
+    _anchor2NotificationRange = value;
+}
 
 /**
  * @fn    zone1Value

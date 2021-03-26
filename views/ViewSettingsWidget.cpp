@@ -61,6 +61,10 @@ ViewSettingsWidget::ViewSettingsWidget(QWidget *parent) :
     QObject::connect(ui->outAlarm, SIGNAL(clicked()), this, SLOT(alarmSetClicked()));
 
     QObject::connect(ui->tagHistoryN, SIGNAL(valueChanged(int)), this, SLOT(tagHistoryNumberValueChanged(int)));
+    QObject::connect(ui->anchor0Range, SIGNAL(valueChanged(double)), this, SLOT(anchor0RangeValueChanged(double)));
+    QObject::connect(ui->anchor1Range, SIGNAL(valueChanged(double)), this, SLOT(anchor1RangeValueChanged(double)));
+    QObject::connect(ui->anchor2Range, SIGNAL(valueChanged(double)), this, SLOT(anchor2RangeValueChanged(double)));
+
 
     QObject::connect(RTLSDisplayApplication::viewSettings(), SIGNAL(showSave(bool)), this, SLOT(showSave(bool)));
     QObject::connect(RTLSDisplayApplication::viewSettings(), SIGNAL(showGO(bool, bool)), this, SLOT(showOriginGrid(bool, bool)));
@@ -280,6 +284,21 @@ void ViewSettingsWidget::tagHistoryNumberValueChanged(int value)
     RTLSDisplayApplication::graphicsWidget()->tagHistoryNumber(value);
 }
 
+void ViewSettingsWidget::anchor0RangeValueChanged(double value)
+{
+    RTLSDisplayApplication::graphicsWidget()->anchor0RangeValueChanged(value);
+}
+
+void ViewSettingsWidget::anchor1RangeValueChanged(double value)
+{
+    RTLSDisplayApplication::graphicsWidget()->anchor1RangeValueChanged(value);
+}
+
+void ViewSettingsWidget::anchor2RangeValueChanged(double value)
+{
+    RTLSDisplayApplication::graphicsWidget()->anchor2RangeValueChanged(value);
+}
+
 void ViewSettingsWidget::zone1EditFinished(void)
 {
     RTLSDisplayApplication::graphicsWidget()->zone1Value(ui->zone1->value());
@@ -317,6 +336,21 @@ void ViewSettingsWidget::tagAncTableShowClicked()
 void ViewSettingsWidget::setTagHistory(int h)
 {
     ui->tagHistoryN->setValue(h);
+}
+
+void ViewSettingsWidget::anchor0Range(double h)
+{
+    ui->anchor0Range->setValue(h);
+}
+
+void ViewSettingsWidget::anchor1Range(double h)
+{
+    ui->anchor1Range->setValue(h);
+}
+
+void ViewSettingsWidget::anchor2Range(double h)
+{
+    ui->anchor2Range->setValue(h);
 }
 
 
