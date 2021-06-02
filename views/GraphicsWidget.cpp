@@ -25,6 +25,7 @@
 #include <QInputDialog>
 #include <QFile>
 #include <QPen>
+#include <QtNetwork>
 
 #define PEN_WIDTH (0.04)
 #define ANC_SIZE (0.15)
@@ -120,7 +121,7 @@ GraphicsWidget::GraphicsWidget(QWidget *parent) :
     _line12 = NULL;
 
     _tagRangeHits = 0; // AUT
-    _tagRangeMaxHitBeforeApiCall = 20; // AUT - 5 seconds.
+    _tagRangeMaxHitBeforeApiCall = 5; // AUT - 5 seconds.
     _anchor0NotificationRange = 1.00;
     _anchor1NotificationRange = 1.00;
     _anchor2NotificationRange = 1.00;
@@ -155,8 +156,12 @@ GraphicsView *GraphicsWidget::graphicsView()
 }
 
 
+void GraphicsWidget::httpRequestFinished(QNetworkReply *reply){
+    //qDebug() << "got reply" << reply->;
+}
+
 void GraphicsWidget::loadConfigFile(QString filename)
-{
+{   
     QFile file(filename);
 
     if (!file.open(QIODevice::ReadOnly))
@@ -744,7 +749,7 @@ void GraphicsWidget::addNewTag(quint64 tagId)
  * */
 void GraphicsWidget::tagPos(quint64 tagId, double x, double y, double z)
 {
-    //qDebug() << "tagPos Tag: 0x" + QString::number(tagId, 16) << " " << x << " " << y << " " << z;
+
 
     if(_busy || _geoFencingMode) //don't display position if geofencing is on
     {
@@ -959,6 +964,18 @@ void GraphicsWidget::tagStats(quint64 tagId, double x, double y, double z, doubl
     }
 }
 
+
+void GraphicsWidget::sendInfoToWebsite(quint64 aId, double range){
+
+    QNetworkAccessManager *mng = new QNetworkAccessManager(this);
+    connect(mng,&QNetworkAccessManager::finished,this,&GraphicsWidget::httpRequestFinished);
+
+    QNetworkRequest request(QUrl("https://decaconsole.herokuapp.com/api/deca?anchorId="+QString::number(aId)+"&range="+QString::number(range)));
+    request.setRawHeader(QByteArray("content-type"), QByteArray("application/json"));
+    QJsonObject json;
+    mng-> post(request, QJsonDocument(json).toJson());
+}
+
 /**
  * Updates the range of the anchors
  * Check if tags are above configured value if yes send message every 5-10 seconds by calling a rest API.
@@ -974,9 +991,11 @@ void GraphicsWidget::tagRange(quint64 tagId, quint64 aId, double range)
     // The tagRangeHits are just used to ensure API is not called every millisecond.
     if(_tagRangeHits >= _tagRangeMaxHitBeforeApiCall)
     {
+        sendInfoToWebsite(aId,range);
+
         // Tag 0
-        if(aId == 0 && range >= _anchor0NotificationRange) {
-            qDebug() << "TagRange - Calling API | " << "TagId" << aId << "Range" << range;
+        if(aId == 0) {
+            //qDebug() << "TagRange - Calling API | " << "TagId" << aId << "Range" << range;           
         }
 
         // Tag 1
@@ -1372,7 +1391,7 @@ void GraphicsWidget::zone(int zone, double radius, bool red)
 
 void GraphicsWidget::centerOnAnchors(void)
 {
-
+    
     Anchor *a1 = this->_anchors.value(0, NULL);
     Anchor *a2 = this->_anchors.value(1, NULL);
     Anchor *a3 = this->_anchors.value(2, NULL);
@@ -1725,7 +1744,7 @@ void GraphicsWidget::anchPos(quint64 anchId, double x, double y, double z, bool 
 void GraphicsWidget::anchTableEditing(bool enable)
 {
     //ui->anchorTable->setEnabled(enable);
-
+    
     if(!enable)
     {
         for(int i = 0; i<3; i++)

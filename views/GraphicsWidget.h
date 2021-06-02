@@ -18,6 +18,7 @@
 #include <QAbstractItemView>
 #include <QGraphicsView>
 #include "RTLSClient.h"
+#include "QtNetwork"
 
 namespace Ui {
 class GraphicsWidget;
@@ -105,12 +106,14 @@ public:
     void insertTag(int ridx, QString &t, bool showR95, bool showLabel, QString &l);
     void tagIDToString(quint64 tagId, QString *t);
     void addNewTag(quint64 tagId);
+    void sendInfoToWebsite(quint64 aId, double range);
     void addNewAnchor(quint64 ancId, bool show);
     void insertAnchor(int ridx, double x, double y, double z, int *array, bool show);
     void loadConfigFile(QString filename);
     void saveConfigFile(QString filename);
 
     void hideTACorrectionTable(bool hidden);
+    void httpRequestFinished(QNetworkReply *reply);
 
 signals:
     void updateAnchorXYZ(int id, int x, double value);
